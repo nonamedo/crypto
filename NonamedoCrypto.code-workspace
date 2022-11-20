@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "src/Nonamedo.Crypto"
+		},
+		{
+			"path": "src/Nonamedo.Crypto.Invoice"
+		},
+		{
+			"path": "src/Nonamedo.Crypto.Service"
+		},
+		{
+			"path": "src/Nonamedo.Crypto.Service.Tron"
+		},
+		{
+			"path": "sample/Nonamedo.Crypto.Sample"
+		},
+		{
+			"path": "sample/Nonamedo.Crypto.Sample.CreateInvoice"
+		},
+		{
+			"path": "tests/Nonamedo.Crypto.Tests"
+		}
+	]
+}

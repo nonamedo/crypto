@@ -1,19 +1,4 @@
-# Nonamedo.Crypto
-Nonamedo.Crypto is a simple project that helps you creating and processing Crypto-Invoices to get payments in crypto and fore many other features.
-
-## Install
-To install the needed NuGet package apply:
-
-```
-Install-Package Nonamedo.Crypto
-```
-
-## Usage: Creating an invoice
-To create a crypto-token invoice you can use the following code:
-
-```csharp
-
-using Nonamedo.Crypto.Factories;
+﻿using Nonamedo.Crypto.Factories;
 using Nonamedo.Crypto.Invoice;
 using Nonamedo.Crypto.Invoice.interfaces;
 using Nonamedo.Crypto.Service;
@@ -23,7 +8,6 @@ using Nonamedo.Crypto.Services;
 decimal expectedTokenAmount = 15; 
 TimeSpan waitTime = TimeSpan.FromDays(1);
 
-// tron network
 ICryptoService cryptoService = CryptoServiceFactory.CreateTronService( 
     fullNode: "http://35.180.51.163:8090", // public node
     solidityNode: "http://35.180.51.163:8091", // public node
@@ -41,7 +25,7 @@ CryptoAccount destinationAcc = new CryptoAccount(
 
 IInvoiceService invoiceService = new InvoiceService(cryptoService, destinationAcc); 
 
-// creating the invoice to get Usdt-token payments
+// creating the invoice
 TokenInvoice invoice = invoiceService.CreateUsdtInvoiceAsync(
     tokenAmount: expectedTokenAmount,
     lifeTime: waitTime,
@@ -57,5 +41,4 @@ while (!invoice.IsStoped())
         Thread.Sleep(1000 * 20); // 20 sec
     }
 }
-```
-	  
+            
