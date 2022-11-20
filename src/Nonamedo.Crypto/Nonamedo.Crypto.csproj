@@ -13,8 +13,8 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Crypto services</PackageReleaseNotes>
-    <Description>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and fore many other features.</Description>
-    <Summary>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and fore many other features.</Summary>
+    <Description>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and for many other features.</Description>
+    <Summary>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and for many other features.</Summary>
     <Copyright>Copyright © 2022 Nonamedo</Copyright>
     <PackageTags>tron trc20 crypto</PackageTags>   
   </PropertyGroup>

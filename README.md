@@ -1,5 +1,5 @@
 # Nonamedo.Crypto
-Nonamedo.Crypto is a simple project that helps you creating and processing Crypto-Invoices to get payments in crypto and fore many other features.
+Nonamedo.Crypto is a simple project that helps you creating and processing Crypto-Invoices to get payments in crypto and for many other features.
 
 ## Install
 To install the needed NuGet package apply:
@@ -29,7 +29,7 @@ ICryptoService cryptoService = CryptoServiceFactory.CreateTronService(
     solidityNode: "http://35.180.51.163:8091", // public node
     httpClient: new HttpClient());
 
-// Funds will be transferd here from the invoice's temp account
+// Funds will be transferd to destinationAcc from the invoice's temp account
 /*
 We can create a new acc like the following:
 var newAcc = cryptoService.GenerateAccountAsync().GetAwaiter().GetResult();
