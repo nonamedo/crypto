@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Nonamedo.Crypto</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <Title>Nonamedo Crypto</Title>
     <Authors>Nonamedo</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,8 +20,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Nonamedo.Crypto.Invoice/Nonamedo.Crypto.Invoice.csproj" />
-    <ProjectReference Include="../Nonamedo.Crypto.Service.Tron/Nonamedo.Crypto.Service.Tron.csproj" />
+    <ProjectReference Include="../Nonamedo.Crypto.Invoice/Nonamedo.Crypto.Invoice.csproj" PrivateAssets="All" />
+    <ProjectReference Include="../Nonamedo.Crypto.Service/Nonamedo.Crypto.Service.csproj" PrivateAssets="All" />
+    <ProjectReference Include="../Nonamedo.Crypto.Service.Tron/Nonamedo.Crypto.Service.Tron.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   
@@ -30,7 +31,28 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-</ItemGroup>
+  </ItemGroup>
+
+
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <!-- Filter out unnecessary files -->
+      <_ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))"/>
+    </ItemGroup>
+
+    <!-- Print batches for debug purposes -->
+    <Message Text="Batch for .nupkg: ReferenceCopyLocalPaths = @(_ReferenceCopyLocalPaths), ReferenceCopyLocalPaths.DestinationSubDirectory = %(_ReferenceCopyLocalPaths.DestinationSubDirectory) Filename = %(_ReferenceCopyLocalPaths.Filename) Extension = %(_ReferenceCopyLocalPaths.Extension)" Importance="High" Condition="'@(_ReferenceCopyLocalPaths)' != ''" />
+
+    <ItemGroup>
+      <!-- Add file to package with consideration of sub folder. If empty, the root folder is chosen. -->
+      <BuildOutputInPackage Include="@(_ReferenceCopyLocalPaths)" TargetPath="%(_ReferenceCopyLocalPaths.DestinationSubDirectory)"/>
+    </ItemGroup>
+  </Target>
 
 
 </Project>
