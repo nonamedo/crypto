@@ -106,7 +106,11 @@ namespace Nonamedo.Crypto.Services
 
                 if (balance > 0)
                 {
-                    var gas = await _cryptoService.CalcGasAmountToSendAsync(invoice.Contract);
+                    var gas = await _cryptoService.CalcGasToWithdrawTokenAsync(
+                        from: invoice.Account,
+                        toAddress: _owner.Address,
+                        contractAddress: invoice.Contract,
+                        tokenAmount: balance);
 
                     if (gas == 0)
                     {
@@ -136,11 +140,11 @@ namespace Nonamedo.Crypto.Services
         {
             if (await _cryptoService.IsTrnsactionConfirmedAsync(invoice.InGasHash))
             {
-                var txid = await _cryptoService.TransferTokenAsync(
+                var txid = await _cryptoService.WithdrawTokenAsync(
                     from: invoice.Account,
                     contractAddress: invoice.Contract,
                     toAddress: _owner.Address,
-                    amount: invoice.ActualTokenAmount);
+                    tokenAmount: invoice.ActualTokenAmount);
 
                 if (string.IsNullOrWhiteSpace(txid))
                 {
@@ -162,26 +166,16 @@ namespace Nonamedo.Crypto.Services
                 var balance = await _cryptoService.GetGasBalanceAsync(invoice.Account);
                 if (balance > 0)
                 {
-                    var amount = await _cryptoService.CalcGasAmountToWithdrawAsync(balance);
+                   var txid = await _cryptoService.WithdrawGasAsync(
+                        from: invoice.Account,
+                        toAddress: _owner.Address);
 
-                    if (amount > 0)
+                    if (string.IsNullOrWhiteSpace(txid))
                     {
-                        var txid = await _cryptoService.SendTransactionAsync(
-                            from: invoice.Account,
-                            toAddress: _owner.Address,
-                            amount: amount);
-
-                        if (string.IsNullOrWhiteSpace(txid))
-                        {
-                            throw new Exception("Could not withdraw gas");
-                        }
-
-                        invoice.WithdrawGas(txid);
+                        throw new Exception("Could not withdraw gas");
                     }
-                    else
-                    {
-                        throw new Exception("Could not calc gas amount to withdraw");
-                    }
+
+                    invoice.WithdrawGas(txid);
                 }
                 else
                 {

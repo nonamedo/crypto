@@ -19,16 +19,16 @@ namespace Nonamedo.Crypto.Sample.Factories
         {
             _io.WriteLine("Select command: ");
             _io.WriteLine("1. Create an account");
-            _io.WriteLine("2. Get Usdt contract address");
+            _io.WriteLine("2. Get USDT contract address");
             _io.WriteLine("3. Get token balance");
             _io.WriteLine("4. Get USDT token balance");
             _io.WriteLine("5. Get Gas balance");
-            _io.WriteLine("6. Calc Gas amount to send for a contract");
-            _io.WriteLine("7. Calc Gas amount to send for Usdt");
-            _io.WriteLine("8. Calc Gas amount to withdraw");
+            _io.WriteLine("6. Calc Gas to withdraw token");
+            _io.WriteLine("7. Calc Gas to withdraw USDT token");
+            _io.WriteLine("8. Withdraw Gas");
             _io.WriteLine("9. Is a transaction confirmed");
-            _io.WriteLine("10. Transfer token");
-            _io.WriteLine("11. Transfer Usdt token");
+            _io.WriteLine("10. Withdraw token");
+            _io.WriteLine("11. Withdraw USDT token");
             _io.WriteLine("12. Send transaction");
         }
 
@@ -57,15 +57,15 @@ namespace Nonamedo.Crypto.Sample.Factories
             }
             else if (cmd.Equals("6", System.StringComparison.OrdinalIgnoreCase))
             {
-                return new CalcGasAmountToSendForContractCommand(_service, _io);
+                return new CalcGasToWithdrawTokenCommand(_service, _io);
             }
             else if (cmd.Equals("7", System.StringComparison.OrdinalIgnoreCase))
             {
-                return new CalcGasAmountToSendForUsdtCommand(_service, _io);
+                return new CalcGasToWithdrawUsdtCommand(_service, _io);
             }
             else if (cmd.Equals("8", System.StringComparison.OrdinalIgnoreCase))
             {
-                return new CalcGasAmountToWithdrawCommand(_service, _io);
+                return new WithdrawGasCommand(_service, _io);
             }
             else if (cmd.Equals("9", System.StringComparison.OrdinalIgnoreCase))
             {
@@ -73,11 +73,11 @@ namespace Nonamedo.Crypto.Sample.Factories
             }
             else if (cmd.Equals("10", System.StringComparison.OrdinalIgnoreCase))
             {
-                return new TransferTokenCommand(_service, _io);
+                return new WithdrawTokenCommand(_service, _io);
             }
             else if (cmd.Equals("11", System.StringComparison.OrdinalIgnoreCase))
             {
-                return new TransferUsdtCommand(_service, _io);
+                return new WithdrawUsdtCommand(_service, _io);
             }
             else if (cmd.Equals("12", System.StringComparison.OrdinalIgnoreCase))
             {

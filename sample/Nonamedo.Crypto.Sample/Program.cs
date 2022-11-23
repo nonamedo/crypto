@@ -16,8 +16,11 @@ namespace Nonamedo.Crypto.Sample
             do
             {
                IInputOutput io = new ConsoleInputOutput();
+               WriteLine("Enter your api key: "); // api keys for private nodes (infura as an example);
+               string apiKey = ReadLine();
 
-                InternalCryptoServiceFactory serviceFactory = new InternalCryptoServiceFactory(io);
+
+                InternalCryptoServiceFactory serviceFactory = new InternalCryptoServiceFactory(io, apiKey);
                 serviceFactory.OutputNetworks();
                 ICryptoService cryptoService = serviceFactory.Create(ReadLine());
                 if (cryptoService == null)

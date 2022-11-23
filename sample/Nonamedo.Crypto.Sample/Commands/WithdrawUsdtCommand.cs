@@ -5,12 +5,12 @@ using Nonamedo.Crypto.Sample.Interfaces;
 
 namespace Nonamedo.Crypto.Sample.Commands
 {
-    internal class TransferUsdtCommand: ICommand
+    internal class WithdrawUsdtCommand: ICommand
     {
         private readonly ICryptoService _service;
         private readonly IInputOutput _io;
 
-        public TransferUsdtCommand(ICryptoService service, IInputOutput io)
+        public WithdrawUsdtCommand(ICryptoService service, IInputOutput io)
         {
             _service = service;
             _io = io;
@@ -30,19 +30,19 @@ namespace Nonamedo.Crypto.Sample.Commands
             string toAddress = _io.ReadLine();
             _io.WriteLine();
 
-            _io.WriteLine("Enter amount: ");
-            decimal amount = Convert.ToDecimal(_io.ReadLine());
+            _io.WriteLine("Enter token amount: ");
+            decimal tokenAmount = Convert.ToDecimal(_io.ReadLine());
             _io.WriteLine();
 
 
             var from = new CryptoAccount(fromAddress, "", fromPrivateKey);
             var to = new CryptoAccount(toAddress, "", "");
 
-            var txid = _service.TransferTokenAsync(
+            var txid = _service.WithdrawTokenAsync(
                 from: from,
-                contractAddress: _service.GetUsdtContract(),
                 toAddress: toAddress,
-                amount: amount).GetAwaiter().GetResult();
+                contractAddress: _service.GetUsdtContract(),
+                tokenAmount: tokenAmount).GetAwaiter().GetResult();
 
 
             _io.WriteLine("Txid: {0}", txid);

@@ -8,11 +8,11 @@ namespace Nonamedo.Crypto.Service.interfaces
         string GetUsdtContract();
         Task<CryptoAccount> GenerateAccountAsync();
         Task<decimal> GetTokenBalanceAsync(CryptoAccount account, string contractAddress);
-        Task<decimal> CalcGasAmountToSendAsync(string contractAddress);
+        Task<decimal> CalcGasToWithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount);
         Task<string> SendTransactionAsync(CryptoAccount from, string toAddress, decimal amount);
         Task<bool> IsTrnsactionConfirmedAsync(string txid);
-        Task<string> TransferTokenAsync(CryptoAccount from, string contractAddress, string toAddress, decimal amount);
-        Task<decimal> CalcGasAmountToWithdrawAsync(decimal balance);
+        Task<string> WithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount);
+        Task<string> WithdrawGasAsync(CryptoAccount from, string toAddress);
         Task<decimal> GetGasBalanceAsync(CryptoAccount account);
         
     }

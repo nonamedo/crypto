@@ -89,19 +89,22 @@ namespace Nonamedo.Crypto.Service.Tron
             return result;
         }
         
-        public async Task<decimal> CalcGasAmountToSendAsync(string contractAddress)
+        public async Task<decimal> CalcGasToWithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount)
         {
             var fee_limit = await GetFeeLimitAsync(contractAddress);
             return fee_limit / 1_000_000L;
         }
 
-        public async Task <decimal> CalcGasAmountToWithdrawAsync(decimal balance)
+       
+
+        public async Task<string> WithdrawGasAsync(CryptoAccount from, string toAddress)
         {
-            await Task.FromResult(0);
-            return balance;
+            var balance = await GetGasBalanceAsync(from);
+            var txid = await SendTransactionAsync(from, toAddress, balance);
+            return txid;
         }
 
-        public async Task<string> TransferTokenAsync(CryptoAccount from, string contractAddress, string toAddress, decimal amount)
+        public async Task<string> WithdrawTokenAsync(CryptoAccount from, string contractAddress, string toAddress, decimal amount)
         {
             /*
             1 TRX = 1,000,000 SUN.

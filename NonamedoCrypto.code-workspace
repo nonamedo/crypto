@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "tests/Nonamedo.Crypto.Tests"
+		},
+		{
+			"path": "src/Nonamedo.Crypto.Service.Ethereum"
 		}
 	]
 }

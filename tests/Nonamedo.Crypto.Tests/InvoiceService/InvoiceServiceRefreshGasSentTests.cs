@@ -58,7 +58,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(true);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -66,7 +66,7 @@ namespace Common.Finance.Tests
 
             // Assert
             /*mockCrypto.Verify(x=>x.IsTrnsactionConfirmedAsync(invoice.InGasHash));
-            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount));
+            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount));
             mockCrypto.VerifyNoOtherCalls();*/
 
            
@@ -98,7 +98,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(false);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -139,7 +139,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ThrowsAsync(new Exception(errorMessage));
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -180,7 +180,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(true);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -188,7 +188,7 @@ namespace Common.Finance.Tests
 
             // Assert
             mockCrypto.Verify(x=>x.IsTrnsactionConfirmedAsync(invoice.InGasHash));
-            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount));
+            mockCrypto.Verify(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount));
             mockCrypto.VerifyNoOtherCalls();
 
            
@@ -220,7 +220,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(true);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -228,7 +228,7 @@ namespace Common.Finance.Tests
 
             // Assert
             mockCrypto.Verify(x=>x.IsTrnsactionConfirmedAsync(invoice.InGasHash));
-            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount));
+            mockCrypto.Verify(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount));
             mockCrypto.VerifyNoOtherCalls();
 
            
@@ -260,7 +260,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(true);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ReturnsAsync(txid);
 
             // Act
@@ -268,7 +268,7 @@ namespace Common.Finance.Tests
 
             // Assert
             mockCrypto.Verify(x=>x.IsTrnsactionConfirmedAsync(invoice.InGasHash));
-            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount));
+            mockCrypto.Verify(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount));
             mockCrypto.VerifyNoOtherCalls();
 
            
@@ -302,7 +302,7 @@ namespace Common.Finance.Tests
             mockCrypto.Setup(x=>x.IsTrnsactionConfirmedAsync(inGasHash))
                 .ReturnsAsync(true);
 
-            mockCrypto.Setup(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount))
+            mockCrypto.Setup(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount))
                 .ThrowsAsync(new Exception(errorMessage));
 
             // Act
@@ -310,7 +310,7 @@ namespace Common.Finance.Tests
 
             // Assert
             mockCrypto.Verify(x=>x.IsTrnsactionConfirmedAsync(invoice.InGasHash));
-            mockCrypto.Verify(x=>x.TransferTokenAsync(invoice.Account, invoice.Contract, owner.Address, invoice.ActualTokenAmount));
+            mockCrypto.Verify(x=>x.WithdrawTokenAsync(invoice.Account, owner.Address, invoice.Contract, invoice.ActualTokenAmount));
             mockCrypto.VerifyNoOtherCalls();
 
            
