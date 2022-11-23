@@ -8,10 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Nonamedo.Crypto.Invoice/Nonamedo.Crypto.Invoice.csproj" PrivateAssets="All" />
-    <ProjectReference Include="../../src/Nonamedo.Crypto.Service/Nonamedo.Crypto.Service.csproj" />
-    <ProjectReference Include="../../src/Nonamedo.Crypto/Nonamedo.Crypto.csproj" />
-    <PackageReference Include="Nethereum.Web3" Version="4.11.0" />
+    <PackageReference Include="Nonamedo.Crypto" Version="2.0.1" />
   </ItemGroup>
 
 </Project>
