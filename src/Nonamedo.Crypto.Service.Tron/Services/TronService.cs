@@ -104,7 +104,7 @@ namespace Nonamedo.Crypto.Service.Tron
             return txid;
         }
 
-        public async Task<string> WithdrawTokenAsync(CryptoAccount from, string contractAddress, string toAddress, decimal amount)
+        public async Task<string> WithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount)
         {
             /*
             1 TRX = 1,000,000 SUN.
@@ -119,7 +119,7 @@ namespace Nonamedo.Crypto.Service.Tron
 
 
             long feeLimit = await GetFeeLimitAsync(contractAddress);
-            long amountInSun = Convert.ToInt64(amount * 1_000_000m);
+            long amountInSun = Convert.ToInt64(tokenAmount * 1_000_000m);
             string amountInHex = amountInSun.ToString("x");
 
             var str = new StringBuilder();

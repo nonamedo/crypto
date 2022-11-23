@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Nonamedo.Crypto</PackageId>
-    <PackageVersion>2.0.1</PackageVersion>
+    <PackageVersion>2.0.3</PackageVersion>
     <Title>Nonamedo Crypto</Title>
     <Authors>Nonamedo</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -29,7 +29,8 @@
   <ItemGroup>
     <PackageReference Include="Nethereum.Web3" Version="4.11.0" />
     <PackageReference Include="Nethereum.Accounts" Version="4.11.0" />
-    <PackageReference Include="Nethereum.Web3" Version="4.11.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
   </ItemGroup>
 
   
