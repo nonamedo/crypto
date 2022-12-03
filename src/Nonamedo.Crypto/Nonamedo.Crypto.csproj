@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Nonamedo.Crypto</PackageId>
-    <PackageVersion>2.0.3</PackageVersion>
+    <PackageVersion>2.0.4</PackageVersion>
     <Title>Nonamedo Crypto</Title>
     <Authors>Nonamedo</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -16,7 +16,7 @@
     <Description>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and for many other features.</Description>
     <Summary>A simple package that helps you creating and processing Crypto-Invoices to get payments in crypto and for many other features.</Summary>
     <Copyright>Copyright © 2022 Nonamedo</Copyright>
-    <PackageTags>tron trc20 crypto</PackageTags>   
+    <PackageTags>tron trc20 crypto erc20 ethereum</PackageTags>   
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,10 +1,11 @@
 using System;
+using System.Text;
 using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Nonamedo.Crypto.Service.interfaces;
+using System.Text.RegularExpressions;
 
 namespace Nonamedo.Crypto.Service.Tron
 {
@@ -13,6 +14,13 @@ namespace Nonamedo.Crypto.Service.Tron
         private readonly string _fullNode;
         private readonly string _solidityNode;
         private readonly HttpClient _client;
+
+
+        private void CheckAddressFormat(string address)
+        {
+            if (!Regex.IsMatch(address, "^T[A-Za-z1-9]{33}$"))
+                throw new ArgumentException("Invalid address format");
+        }
 
         public TronService(string fullNode, string solidityNode, HttpClient client)
         {
@@ -23,6 +31,8 @@ namespace Nonamedo.Crypto.Service.Tron
 
         public async Task<string> SendTransactionAsync(CryptoAccount from, string toAddress, decimal amount)
         {
+            CheckAddressFormat(toAddress);
+
             var rawTransaction = await CreateTransactionAsync(
                 toAddress: toAddress,
                 ownerAddress: from.Address,
@@ -79,6 +89,8 @@ namespace Nonamedo.Crypto.Service.Tron
 
         async Task<TronTransaction> CreateTransactionAsync(string toAddress, string ownerAddress, long amount)
         {
+            CheckAddressFormat(toAddress);
+
             var body = new CreateTransactionRequest{
                 OwnerAddress = Helper.ToHex(ownerAddress),
                 ToAddress = Helper.ToHex(toAddress),
@@ -91,6 +103,8 @@ namespace Nonamedo.Crypto.Service.Tron
         
         public async Task<decimal> CalcGasToWithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount)
         {
+            CheckAddressFormat(toAddress);
+
             var fee_limit = await GetFeeLimitAsync(contractAddress);
             return fee_limit / 1_000_000L;
         }
@@ -99,6 +113,8 @@ namespace Nonamedo.Crypto.Service.Tron
 
         public async Task<string> WithdrawGasAsync(CryptoAccount from, string toAddress)
         {
+            CheckAddressFormat(toAddress);
+
             var balance = await GetGasBalanceAsync(from);
             var txid = await SendTransactionAsync(from, toAddress, balance);
             return txid;
@@ -106,6 +122,8 @@ namespace Nonamedo.Crypto.Service.Tron
 
         public async Task<string> WithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount)
         {
+            CheckAddressFormat(toAddress);
+            
             /*
             1 TRX = 1,000,000 SUN.
             1 Energy = 280 SUN
