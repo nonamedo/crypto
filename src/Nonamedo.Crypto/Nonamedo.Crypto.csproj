@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Nonamedo.Crypto</PackageId>
-    <PackageVersion>2.0.4</PackageVersion>
+    <PackageVersion>2.0.5</PackageVersion>
     <Title>Nonamedo Crypto</Title>
     <Authors>Nonamedo</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
