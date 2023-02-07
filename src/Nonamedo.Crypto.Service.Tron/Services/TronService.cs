@@ -320,12 +320,16 @@ namespace Nonamedo.Crypto.Service.Tron
             Currently 1 energy = 280 sun ,therefore max fee limit is 29,631 * 280 = 8,296,680
 
             Current price of 1 energy is 420
+
+            
            
             */
 
             await Task.FromResult(0);
             //return 10 * 1_000_000L; // it means the contract can consume up to 10_000_000 / 280 SUN =  1,000 energy 
-            return 15 * 1_000_000L;
+            //return 15 * 1_000_000L;
+            //return 20 * 1_000_000L;
+            return 100 * 1_000_000L;
         }
        
        
