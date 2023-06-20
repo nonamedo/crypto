@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Nonamedo.Crypto.Service.interfaces;
 using System.Text.RegularExpressions;
+using Polly;
+using System.Net.Sockets;
 
 namespace Nonamedo.Crypto.Service.Tron
 {
@@ -264,7 +266,7 @@ namespace Nonamedo.Crypto.Service.Tron
         }
 
 
-     
+
 
         async Task<T> PostAsync<T>(string baseUrl, string resourse, object body)
         {
@@ -273,10 +275,24 @@ namespace Nonamedo.Crypto.Service.Tron
             var json = JsonConvert.SerializeObject(body);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync(uri, data);
+            var policy = Policy
+                .HandleInner<HttpRequestException>()
+                .WaitAndRetry(
+                    5,
+                    retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                    (exception, timeSpan, context) =>
+                    {
+                        // Add logic to be executed before each retry, such as logging
+
+                    }
+                );
+
+            HttpResponseMessage response = policy
+                .Execute<HttpResponseMessage>(() => _client.PostAsync(uri, data).Result);
+
             var resultStr = await response.Content.ReadAsStringAsync();
-            
             var result = JsonConvert.DeserializeObject<T>(resultStr);
+
             return result;
         }
 
@@ -284,9 +300,22 @@ namespace Nonamedo.Crypto.Service.Tron
         {
             Uri uri = new Uri($"{baseUrl}/{resourse}");
 
-            var response = await _client.GetAsync(uri);
-            var resultStr = await response.Content.ReadAsStringAsync();
+            var policy = Policy
+                .HandleInner<HttpRequestException>()
+                .WaitAndRetry(
+                    5,
+                    retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                    (exception, timeSpan, context) =>
+                    {
+                        // Add logic to be executed before each retry, such as logging
 
+                    }
+                );
+
+            HttpResponseMessage response = policy
+                .Execute<HttpResponseMessage>(() => _client.GetAsync(uri).Result);
+
+            string resultStr = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<T>(resultStr);
             return result;
         }
