@@ -22,14 +22,7 @@ namespace Nonamedo.Crypto.Service.Tron
         [JsonProperty("type_url")]
         public string TypeUrl {get;set;}
     }
-    internal class SmartContract 
-    {
-        [JsonProperty("parameter")]
-        public SmartContractParameter Parameter {get;set;}
-        
-        [JsonProperty("type")]
-        public SmartContractParameter Type {get;set;}
-    }
+   
     internal class RawData
     {
         [JsonProperty("contract")]

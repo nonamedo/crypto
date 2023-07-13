@@ -15,6 +15,9 @@ namespace Nonamedo.Crypto.Service.Tron
         [JsonProperty("energy_used")]
         public long EnergyUsed  {get;set;}
 
+        [JsonProperty("energy_penalty")]
+        public long EnergyPenalty  {get;set;}
+
         [JsonProperty("constant_result")]
         public string[] ConstantResult  {get;set;}
 

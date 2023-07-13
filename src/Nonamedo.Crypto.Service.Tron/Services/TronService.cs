@@ -108,6 +108,14 @@ namespace Nonamedo.Crypto.Service.Tron
             CheckAddressFormat(toAddress);
 
             var fee_limit = await GetFeeLimitAsync(contractAddress);
+
+
+
+
+            // 31,895 Energy （13.3959 TRX burned for Energy）
+            // Basic Energy consumption is 14,650 and extra Energy consumption is 17,245
+
+
             return fee_limit / 1_000_000L;
         }
 
@@ -118,17 +126,27 @@ namespace Nonamedo.Crypto.Service.Tron
             CheckAddressFormat(toAddress);
 
             var balance = await GetGasBalanceAsync(from);
-            var txid = await SendTransactionAsync(from, toAddress, balance);
+
+            // 268 bp
+            // the unit price is = 1_000 sun, so 268 * 1_000 = 268_
+            var amount = balance - 0.1m; // 600 bp - 345 (to withdraw USDT) = 255 is not enough
+
+
+            string txid = "0000000000000000000000000000000000000000000000000000000000000000";
+            if (amount > 0)
+            {
+                txid = await SendTransactionAsync(from, toAddress, amount);
+            }
             return txid;
         }
 
         public async Task<string> WithdrawTokenAsync(CryptoAccount from, string toAddress, string contractAddress, decimal tokenAmount)
         {
             CheckAddressFormat(toAddress);
-            
+
             /*
             1 TRX = 1,000,000 SUN.
-            1 Energy = 280 SUN
+            1 Energy = 420 SUN
 
             fee_limit is the total SUN value that contact call can consume. 
             For example, 
@@ -136,6 +154,10 @@ namespace Nonamedo.Crypto.Service.Tron
             
             setting fee_limit Prevents the contract call transaction from consuming too much energy.
             */
+
+            
+
+            
 
 
             long feeLimit = await GetFeeLimitAsync(contractAddress);
@@ -265,6 +287,18 @@ namespace Nonamedo.Crypto.Service.Tron
             return balance;
         }
 
+         async Task<ContractInfo> GetContractInfoAsync(string contractAddress)
+        {
+            var hex = Helper.ToHex(contractAddress);
+            var body = new GetContractInfoRequest{
+                Value = hex
+            };
+
+            var result = await PostAsync<ContractInfo>(baseUrl: this._fullNode, resourse: "wallet/getcontractinfo", body: body);
+
+            return result;
+        }
+
 
 
 
@@ -335,24 +369,77 @@ namespace Nonamedo.Crypto.Service.Tron
             return result;
         }
 
+        async Task<ContractTransaction> TriggerConstantContract(string ownerAddress, string contractAddress, 
+            string functionSelector, string parameter, string data = null, long? callValue= null, long? callTokenValue = null,
+            long? tokenId = null, bool visible = true)
+        {
+            var body =  new TriggerConstantContractRequest{
+                OwnerAddress = ownerAddress,
+                ContractAddress= contractAddress,
+                FunctionSelector = functionSelector,
+                Parameter = parameter,
+                Data = data,
+                CallValue = callValue,
+                CallTokenValue = callTokenValue,
+                TokenId = tokenId,
+                Visible = visible
+            };
+
+            var result = await PostAsync<ContractTransaction>(baseUrl: this._fullNode, resourse: "wallet/triggerconstantcontract", body: body);
+            return result;
+        }
+
        
         async Task<long> GetFeeLimitAsync(string contractAddress) 
         {
             /*
             - if the receiver address did not receive a transaction on the specific trc20 contract (say USDT-TRC20), 
-            energy consumption would be exactly 29,631.
+            BASIC energy consumption would be 29,650. But actual (due to dynamic energy model https://developers.tron.network/docs/resource-model#dynamic-energy-model)
+             = 64,895 (on 12.07.23)
 
             - if the receiver address already received a transaction on the specific trc20 contract, 
-            energy consumption would be exactly 14,631.
+            BASIC energy consumption would be 14,650. But actual (due to dynamic energy model https://developers.tron.network/docs/resource-model#dynamic-energy-model)
+             = 31,895 (on 12.07.23)
 
             --------------------------------------------------------------------------
-            Currently 1 energy = 280 sun ,therefore max fee limit is 29,631 * 280 = 8,296,680
+            Currently 1 energy = 420 sun ,therefore max fee limit is 29,631 * 420 = 8,296,680
 
             Current price of 1 energy is 420
 
-            
+            need to determine the energy consumption (to withdraw USDT).
+            So we need to transfer: 420 * en.cons. sun
+
+            ----------------------------------------------------------------------------------
+
+            For empty recipient: 29650 energy (previously 29631)
+            For non-empty recipient: 14650 energy (previously 14631)
            
             */
+
+
+            /* ContractTransaction rr = await TriggerConstantContract(
+                ownerAddress: "TA5Qt9d6u7ipA46NQkZ8hNyBGSLy9hhGRV",
+                contractAddress: contractAddress,
+                functionSelector: "transfer(address,uint256)",
+                parameter: "0000000000000000000000002ce5de57373427f799cc0a3dd03b841322514a8c00000000000000000000000000000000000000000000000000038d7ea4c68000",
+                visible: true);
+
+            if (rr.EnergyUsed <= 0)
+                throw new Exception("Cannot estimate gas used");  */
+
+            
+
+            /* ContractInfo ci = await GetContractInfoAsync(contractAddress);
+            long basicEnergyConsumption = 14_650; // todo: esitmate dynamically
+            long extraEnergyConsumption = basicEnergyConsumption * ci.ContractState.EnergyFactor / 10_000;
+            long energyConsumption = basicEnergyConsumption + extraEnergyConsumption;
+
+            long energyUnitPrice = 420; // todo: estimate dynamically
+
+            long gasRequired = energyUnitPrice * energyConsumption / 1_000_000;
+
+            // double this to be sure
+            return gasRequired * 2L * 1_000_000L; */
 
             await Task.FromResult(0);
             //return 10 * 1_000_000L; // it means the contract can consume up to 10_000_000 / 280 SUN =  1,000 energy 

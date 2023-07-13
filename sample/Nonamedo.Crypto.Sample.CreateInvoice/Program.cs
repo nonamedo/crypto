@@ -10,9 +10,9 @@ TimeSpan waitTime = TimeSpan.FromDays(1);
 
 
 // tron:
-/*ICryptoService cryptoService = CryptoServiceFactory.CreateTronService( 
-    fullNode: "http://35.180.51.163:8090", // public node
-    solidityNode: "http://35.180.51.163:8091", // public node
+ICryptoService cryptoService = CryptoServiceFactory.CreateTronService( 
+    fullNode: "http://52.53.189.99:8090", // public node
+    solidityNode: "http://52.53.189.99:8091", // public node
     httpClient: new HttpClient());
 
 // Funds will be transferd here from the invoice's temp account
@@ -21,18 +21,17 @@ TimeSpan waitTime = TimeSpan.FromDays(1);
 CryptoAccount destinationAcc = new CryptoAccount(
     address: "TRtCNbKpz66rrgxWqYJ8hmsEB8Z8L9we82",
     publicKey: "0497C6CA5C7E450D1D693EF2497CC2758D68407ABC603FE79C99DF442FD56C2341CF2AEBDB087C76990E70D98AA4188EA35935C2A99AF08CE8F0965A3C8CE94354",
-    privateKey: "c6129b04261d3cb26fad45b544807abf22392d83306345054fb06895ab291935");*/
-
+    privateKey: "c6129b04261d3cb26fad45b544807abf22392d83306345054fb06895ab291935");
 
 // ethereum
-string yourApiKey = "<infura.io api key>"; // to get api key you have to sign up on infura.io
+/* string yourApiKey = "<infura.io api key>"; // to get api key you have to sign up on infura.io
 ICryptoService cryptoService = CryptoServiceFactory.CreateEthereumService( 
      node: "https://mainnet.infura.io/v3/" + yourApiKey);
 
 CryptoAccount destinationAcc = new CryptoAccount(
     address: "0xD33bEea45180E323619C7dec2a1Fba4b692747b1",
     publicKey: "043d6e18fade6447227063d442ffefdef0cf6c736413765fb6a8cb74b91c25b913f60068ae380050bf5a2d0c8024da28dd1e2df54c5e7330f055ab811bd3d8ada4",
-    privateKey: "0xa890fc7df898d1eb791025704d17eaba6ddb4668ea77893b8ac5958e46f3a4da");
+    privateKey: "0xa890fc7df898d1eb791025704d17eaba6ddb4668ea77893b8ac5958e46f3a4da"); */
 
 
 IInvoiceService invoiceService = new InvoiceService(cryptoService, destinationAcc); 
