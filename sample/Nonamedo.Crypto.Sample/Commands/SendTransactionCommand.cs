@@ -25,6 +25,10 @@ namespace Nonamedo.Crypto.Sample.Commands
              _io.WriteLine("Enter sender's private key: ");
             string fromPrivateKey = _io.ReadLine();
             _io.WriteLine();
+            
+            _io.WriteLine("Enter permission id (if required): ");
+            string permissionIdStr = _io.ReadLine();
+            _io.WriteLine();
 
              _io.WriteLine("Enter receiver's address: ");
             string toAddress = _io.ReadLine();
@@ -34,8 +38,20 @@ namespace Nonamedo.Crypto.Sample.Commands
             decimal amount = Convert.ToDecimal(_io.ReadLine());
             _io.WriteLine();
 
-
-            var from = new CryptoAccount(fromAddress, "", fromPrivateKey);
+            int? permissionId = null;
+            if (!string.IsNullOrWhiteSpace(permissionIdStr))
+            {
+                try
+                {
+                    permissionId = Convert.ToInt32(permissionIdStr);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+            
+            var from = new CryptoAccount(fromAddress, "", fromPrivateKey, permissionId);
             var to = new CryptoAccount(toAddress, "", "");
 
              var txid = _service.SendTransactionAsync(

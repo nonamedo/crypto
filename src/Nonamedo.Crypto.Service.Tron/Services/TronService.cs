@@ -35,16 +35,21 @@ namespace Nonamedo.Crypto.Service.Tron
         {
             CheckAddressFormat(toAddress);
 
+            // todo: get account info
+            
             var rawTransaction = await CreateTransactionAsync(
                 toAddress: toAddress,
                 ownerAddress: from.Address,
-                amount: Convert.ToInt64(amount * 1_000_000L));
+                amount: Convert.ToInt64(amount * 1_000_000L),
+                permissionId: from.PermissionId);
 
             if (rawTransaction == null)
                 return null;
 
             if (rawTransaction.TxID == null)
                 return null;
+            
+            //rawTransaction.PermissionId = from.PermissionId;
 
             TronTransaction signedTransaction = await AddTransactionSignAsync(rawTransaction, from.PrivateKey);
             BroadcastTransactionResult result = await BroadcastTransactionAsync(signedTransaction);
@@ -55,6 +60,21 @@ namespace Nonamedo.Crypto.Service.Tron
             }
             
             return null;
+        }
+
+        // public async Task GetAccountAsync(string address)
+        // {
+        //     var body = new GetAccountRequest{
+        //        Address = address
+        //     };
+        //      
+        //     var result = await PostAsync<TronAccount>(baseUrl: this._fullNode, resourse: "wallet/getaccount", body: body);
+        //     return result;
+        // }
+
+        public Task<string> SendTransactionAsync(CryptoAccount from, string toAddress, decimal amount, int? permissionId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> IsTrnsactionConfirmedAsync(string txid)
@@ -89,14 +109,29 @@ namespace Nonamedo.Crypto.Service.Tron
 
         
 
-        async Task<TronTransaction> CreateTransactionAsync(string toAddress, string ownerAddress, long amount)
+        // async Task<TronTransaction> CreateTransactionAsync(string toAddress, string ownerAddress, long amount)
+        // {
+        //     CheckAddressFormat(toAddress);
+        //
+        //     var body = new CreateTransactionRequest{
+        //         OwnerAddress = Helper.ToHex(ownerAddress),
+        //         ToAddress = Helper.ToHex(toAddress),
+        //         Amount = amount
+        //     };
+        //      
+        //     var result = await PostAsync<TronTransaction>(baseUrl: this._fullNode, resourse: "wallet/createtransaction", body: body);
+        //     return result;
+        // }
+        //
+        async Task<TronTransaction> CreateTransactionAsync(string toAddress, string ownerAddress, long amount, int? permissionId)
         {
             CheckAddressFormat(toAddress);
 
             var body = new CreateTransactionRequest{
                 OwnerAddress = Helper.ToHex(ownerAddress),
                 ToAddress = Helper.ToHex(toAddress),
-                Amount = amount
+                Amount = amount,
+                PermissionId = permissionId
             };
              
             var result = await PostAsync<TronTransaction>(baseUrl: this._fullNode, resourse: "wallet/createtransaction", body: body);

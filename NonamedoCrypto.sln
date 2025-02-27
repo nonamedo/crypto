@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto.Sample", "sample\Nonamedo.Crypto.Sample\Nonamedo.Crypto.Sample.csproj", "{79F936E4-C319-4BCD-9CDD-05AC8D22F0FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto", "src\Nonamedo.Crypto\Nonamedo.Crypto.csproj", "{4269ECE4-F6B4-443D-B778-4073ABC0B9C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto.Service", "src\Nonamedo.Crypto.Service\Nonamedo.Crypto.Service.csproj", "{BB77574C-64A2-4885-98A8-B76C224D60F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto.Invoice", "src\Nonamedo.Crypto.Invoice\Nonamedo.Crypto.Invoice.csproj", "{B614A9FB-501F-45CF-8931-D0AB3C6F9415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto.Service.Tron", "src\Nonamedo.Crypto.Service.Tron\Nonamedo.Crypto.Service.Tron.csproj", "{629705CE-D058-4BAC-940C-75BB2956F411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nonamedo.Crypto.Service.Ethereum", "src\Nonamedo.Crypto.Service.Ethereum\Nonamedo.Crypto.Service.Ethereum.csproj", "{391513ED-F73A-4668-A740-A3A8AF1B69D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79F936E4-C319-4BCD-9CDD-05AC8D22F0FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F936E4-C319-4BCD-9CDD-05AC8D22F0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F936E4-C319-4BCD-9CDD-05AC8D22F0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F936E4-C319-4BCD-9CDD-05AC8D22F0FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4269ECE4-F6B4-443D-B778-4073ABC0B9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4269ECE4-F6B4-443D-B778-4073ABC0B9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4269ECE4-F6B4-443D-B778-4073ABC0B9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4269ECE4-F6B4-443D-B778-4073ABC0B9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB77574C-64A2-4885-98A8-B76C224D60F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB77574C-64A2-4885-98A8-B76C224D60F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB77574C-64A2-4885-98A8-B76C224D60F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB77574C-64A2-4885-98A8-B76C224D60F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B614A9FB-501F-45CF-8931-D0AB3C6F9415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B614A9FB-501F-45CF-8931-D0AB3C6F9415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B614A9FB-501F-45CF-8931-D0AB3C6F9415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B614A9FB-501F-45CF-8931-D0AB3C6F9415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{629705CE-D058-4BAC-940C-75BB2956F411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629705CE-D058-4BAC-940C-75BB2956F411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629705CE-D058-4BAC-940C-75BB2956F411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629705CE-D058-4BAC-940C-75BB2956F411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{391513ED-F73A-4668-A740-A3A8AF1B69D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{391513ED-F73A-4668-A740-A3A8AF1B69D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{391513ED-F73A-4668-A740-A3A8AF1B69D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{391513ED-F73A-4668-A740-A3A8AF1B69D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

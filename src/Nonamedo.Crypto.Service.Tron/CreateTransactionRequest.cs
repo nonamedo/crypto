@@ -13,6 +13,9 @@ namespace Nonamedo.Crypto.Service.Tron
         [JsonProperty("amount")]
         public long Amount {get;set;}
         
+        [JsonProperty("Permission_id")]
+        public int? PermissionId {get;set;}
+        
     }
 
 }
