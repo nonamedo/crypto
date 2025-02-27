@@ -66,9 +66,6 @@ namespace Nonamedo.Crypto.Service.Tron
 
         [JsonProperty("raw_data_hex")]
         public string RawDataHex  {get;set;}
-        
-        // [JsonProperty("permission_id")]
-        // public int? PermissionId  {get;set;}
 
         [JsonProperty("signature")]
         public string[] Signature {get;set;}
