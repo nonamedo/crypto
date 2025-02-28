@@ -1,4 +1,3 @@
-
 using Newtonsoft.Json;
 
 namespace Nonamedo.Crypto.Service.Tron
@@ -19,5 +18,8 @@ namespace Nonamedo.Crypto.Service.Tron
 
         [JsonProperty("fee_limit")]
         public long FeeLimit {get;set;}
+        
+        [JsonProperty("Permission_id", NullValueHandling = NullValueHandling.Ignore)]
+        public int? PermissionId { get; set; }
     }
 }

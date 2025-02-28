@@ -162,9 +162,15 @@ namespace Nonamedo.Crypto.Service.Tron
 
             var balance = await GetGasBalanceAsync(from);
 
-            // 268 bp
+            // 268 bp - the cost of TRX transfer
             // the unit price is = 1_000 sun, so 268 * 1_000 = 268_
-            var amount = balance - 0.1m; // 600 bp - 345 (to withdraw USDT) = 255 is not enough
+            
+            // so the new rules are: if account's bandwidth is not enough then TRX is used
+            // and not the difference, either of them. 
+            // so if I have only 260 bandwidth, I pay not only for difference which is 8 Bandwidth
+            // but I need to pay 0.268 TRX, and my bandwidth is not used. Instead TRX
+            
+            var amount = balance - 0.3m; // 600 bp - 345 (to withdraw USDT) = 255 is not enough
 
 
             string txid = "0000000000000000000000000000000000000000000000000000000000000000";
@@ -191,10 +197,6 @@ namespace Nonamedo.Crypto.Service.Tron
             */
 
             
-
-            
-
-
             long feeLimit = await GetFeeLimitAsync(contractAddress);
             long amountInSun = Convert.ToInt64(tokenAmount * 1_000_000m);
             string amountInHex = amountInSun.ToString("x");
@@ -209,7 +211,8 @@ namespace Nonamedo.Crypto.Service.Tron
                 ownerAddress: Helper.ToHex(from.Address),
                 parameter: parameter,
                 functionSelector: "transfer(address,uint256)",
-                feeLimit: feeLimit);
+                feeLimit: feeLimit,
+                permissionId: from.PermissionId);
 
             if (!contractTransaction.Result.Result)
                 return null;
@@ -289,7 +292,8 @@ namespace Nonamedo.Crypto.Service.Tron
                 ownerAddress: Helper.ToHex(account.Address),
                 parameter: Helper.ToParameter(Helper.ToHex(account.Address)),
                 functionSelector: "balanceOf(address)",
-                feeLimit: 0);
+                feeLimit: 0,
+                permissionId: null);
 
 
             if (contractTransaction.ConstantResult!=null && contractTransaction.ConstantResult.Length >0)
@@ -390,14 +394,15 @@ namespace Nonamedo.Crypto.Service.Tron
         }
 
         async Task<ContractTransaction> TriggerSmartContractAsync(string contractAddress, string ownerAddress, 
-            string parameter, string functionSelector, long feeLimit)
+            string parameter, string functionSelector, long feeLimit, int? permissionId)
         {
             var body =  new TriggerSmartContractRequest{
                 ContractAddress= contractAddress,
                 OwnerAddress = ownerAddress,
                 Parameter = parameter,
                 FunctionSelector = functionSelector,
-                FeeLimit = feeLimit
+                FeeLimit = feeLimit,
+                PermissionId = permissionId
             };
 
             var result = await PostAsync<ContractTransaction>(baseUrl: this._fullNode, resourse: "wallet/triggersmartcontract", body: body);
